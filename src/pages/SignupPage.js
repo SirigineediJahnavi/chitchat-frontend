@@ -9,7 +9,7 @@ export default function SignupPage({ setUser, setPage }) {
 
   const signup = async () => {
     try {
-      const res = await axios.post("http://localhost:5001/user/signup", { name, email, password, phone })
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/signup`, { name, email, password, phone })
       console.log('Signup response:', res.data)
       const { user, token } = res.data;
       localStorage.setItem("token", token);

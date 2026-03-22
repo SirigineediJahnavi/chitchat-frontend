@@ -3,7 +3,7 @@ import { io } from "socket.io-client"
 import axios from "axios"
 import SimplePeer from "simple-peer"
 
-const socket = io("http://localhost:5001")
+const socket = io(process.env.REACT_APP_BACKEND_URL);
 
 export default function ChatPage({ user }) {
   const [arr, setArr] = useState([]) // Chat list
@@ -91,7 +91,7 @@ export default function ChatPage({ user }) {
               .then(subscription => {
                 if (subscription) {
                   // Save subscription to backend
-                  axios.post("http://localhost:5001/user/subscribe", {
+                  axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/subscribe`, {
                     phone: user.phone,
                     subscription: subscription
                   })
@@ -128,7 +128,7 @@ export default function ChatPage({ user }) {
     const f = async () => {
       const token = localStorage.getItem("token");
       try {
-        const res = await axios.get("http://localhost:5001/chat/getChats", {
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/chat/getChats`, {
           headers: { Authorization: `Bearer ${token}` }
         })
         setArr(res.data)
@@ -146,7 +146,7 @@ export default function ChatPage({ user }) {
     socket.emit("join_room", r)
     const token = localStorage.getItem("token");
     try {
-      const res = await axios.get(`http://localhost:5001/chat/getMessages/${u.phone}`, {
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/chat/getMessages/${u.phone}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       setList(res.data)
@@ -318,7 +318,7 @@ export default function ChatPage({ user }) {
     if (!search) return
     const token = localStorage.getItem("token");
     try {
-      const res = await axios.post("http://localhost:5001/chat/searchUser", 
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/chat/searchUser`, 
         { phone: search },
         { headers: { Authorization: `Bearer ${token}` } }
       )
@@ -379,7 +379,7 @@ export default function ChatPage({ user }) {
     
     try {
       const token = localStorage.getItem("token")
-      await axios.post("http://localhost:5001/chat/scheduleMessage", {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/chat/scheduleMessage`, {
         sender: user.phone,
         receiver: sel.phone,
         text: scheduleMsg,
