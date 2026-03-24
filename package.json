@@ -5,8 +5,8 @@
   "dependencies": {
     "axios": "^1.13.6",
     "libsodium-wrappers": "^0.8.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-scripts": "5.0.1",
     "simple-peer": "^9.11.1",
     "socket.io-client": "^4.8.3",
@@ -18,5 +18,17 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
